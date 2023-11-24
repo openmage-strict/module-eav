@@ -1,0 +1,4 @@
+src/app/code/core/Mage/Eav/                                     app/code/core/Mage/Eav/
+src/app/design/adminhtml/default/default/template/eav/          app/design/adminhtml/default/default/template/eav/
+src/app/etc/modules/Mage_Eav.xml                                app/etc/modules/Mage_Eav.xml
+src/app/locale/en_US/Mage_Eav.csv                               app/locale/en_US/Mage_Eav.csv
