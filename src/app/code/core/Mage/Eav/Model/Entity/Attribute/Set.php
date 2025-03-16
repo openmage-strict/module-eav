@@ -1,5 +1,4 @@
 <?php
-
 /**
  * OpenMage
  *
@@ -10,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -182,7 +181,7 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
         if (!$this->_getResource()->validate($this, $this->getAttributeSetName())) {
             throw Mage::exception(
                 'Mage_Eav',
-                Mage::helper('eav')->__('Attribute set with the "%s" name already exists.', $this->getAttributeSetName()),
+                Mage::helper('eav')->__('Attribute set with the "%s" name already exists.', $this->getAttributeSetName())
             );
         }
 
@@ -193,6 +192,7 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
      * Add set info to attributes
      *
      * @param string|Mage_Eav_Model_Entity_Type $entityType
+     * @param array $attributes
      * @param int $setId
      * @return $this
      */

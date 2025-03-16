@@ -1,5 +1,4 @@
 <?php
-
 /**
  * OpenMage
  *
@@ -10,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -37,7 +36,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * @var array
      */
     public $defaultGroupIdAssociations  = [
-        'General'   => 1,
+        'General'   => 1
     ];
 
     /**
@@ -81,14 +80,14 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                     $defaultGroupName,
                     'attribute_group_id',
                     'attribute_set_id',
-                    $set,
+                    $set
                 );
                 if (!$groupId) {
                     $groupId = $this->getTableRow(
                         'eav/attribute_group',
                         'attribute_set_id',
                         $set,
-                        'attribute_group_id',
+                        'attribute_group_id'
                     );
                 }
                 $this->updateTableRow(
@@ -96,7 +95,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                     'attribute_group_id',
                     $groupId,
                     'default_id',
-                    $defaultGroupId,
+                    $defaultGroupId
                 );
             }
         }
@@ -105,12 +104,14 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     }
 
     /******************* ENTITY TYPES *****************/
+
     /**
      * Add an entity type
      *
      * If already exists updates the entity type with params data
      *
      * @param string $code
+     * @param array $params
      * @return $this
      */
     public function addEntityType($code, array $params)
@@ -163,7 +164,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
             'entity_type_id',
             $this->getEntityTypeId($code),
             $field,
-            $value,
+            $value
         );
         return $this;
     }
@@ -181,7 +182,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
             'eav/entity_type',
             is_numeric($id) ? 'entity_type_id' : 'entity_type_code',
             $id,
-            $field,
+            $field
         );
     }
 
@@ -214,7 +215,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         if (is_numeric($id)) {
             $this->deleteTableRow('eav/entity_type', 'entity_type_id', $id);
         } else {
-            $this->deleteTableRow('eav/entity_type', 'entity_type_code', (string) $id);
+            $this->deleteTableRow('eav/entity_type', 'entity_type_code', (string)$id);
         }
 
         return $this;
@@ -289,7 +290,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
             $field,
             $value,
             'entity_type_id',
-            $this->getEntityTypeId($entityTypeId),
+            $this->getEntityTypeId($entityTypeId)
         );
         return $this;
     }
@@ -310,7 +311,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
             $id,
             $field,
             'entity_type_id',
-            $this->getEntityTypeId($entityTypeId),
+            $this->getEntityTypeId($entityTypeId)
         );
     }
 
@@ -487,7 +488,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
             $field,
             $value,
             'attribute_set_id',
-            $this->getAttributeSetId($entityTypeId, $setId),
+            $this->getAttributeSetId($entityTypeId, $setId)
         );
 
         return $this;
@@ -522,7 +523,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
             $searchId,
             $field,
             'attribute_set_id',
-            $this->getAttributeSetId($entityTypeId, $setId),
+            $this->getAttributeSetId($entityTypeId, $setId)
         );
     }
 
@@ -563,7 +564,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         $this->deleteTableRow(
             'eav/attribute_group',
             'attribute_group_id',
-            $this->getAttributeGroupId($entityTypeId, $setId, $id),
+            $this->getAttributeGroupId($entityTypeId, $setId, $id)
         );
         return $this;
     }
@@ -651,7 +652,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         ) {
             throw Mage::exception(
                 'Mage_Eav',
-                Mage::helper('eav')->__('Maximum length of attribute code must be less then %s symbols', $attributeCodeMaxLength),
+                Mage::helper('eav')->__('Maximum length of attribute code must be less then %s symbols', $attributeCodeMaxLength)
             );
         }
 
@@ -665,6 +666,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      *
      * @param string|int $entityTypeId
      * @param string $code
+     * @param array $attr
      * @return $this
      */
     public function addAttribute($entityTypeId, $code, array $attr)
@@ -673,9 +675,9 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         $data = array_merge(
             [
                 'entity_type_id' => $entityTypeId,
-                'attribute_code' => $code,
+                'attribute_code' => $code
             ],
-            $this->_prepareValues($attr),
+            $this->_prepareValues($attr)
         );
 
         $this->_validateAttributeData($data);
@@ -698,14 +700,14 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                     $this->addAttributeGroup(
                         $entityTypeId,
                         $set['attribute_set_id'],
-                        $attr['group'],
+                        $attr['group']
                     );
                     $this->addAttributeToSet(
                         $entityTypeId,
                         $set['attribute_set_id'],
                         $attr['group'],
                         $code,
-                        $sortOrder,
+                        $sortOrder
                     );
                 } else {
                     $this->addAttributeToSet(
@@ -713,7 +715,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                         $set['attribute_set_id'],
                         $this->_generalGroupName,
                         $code,
-                        $sortOrder,
+                        $sortOrder
                     );
                 }
             }
@@ -833,7 +835,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                 'attribute_id',
                 $this->getAttributeId($entityTypeId, $id),
                 'sort_order',
-                $sortOrder,
+                $sortOrder
             );
         }
 
@@ -862,7 +864,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
             $field,
             $value,
             'entity_type_id',
-            $this->getEntityTypeId($entityTypeId),
+            $this->getEntityTypeId($entityTypeId)
         );
 
         return $this;
@@ -907,7 +909,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                 'attribute_id',
                 $this->getAttributeId($entityTypeId, $id),
                 $field,
-                $value,
+                $value
             );
         }
 
@@ -936,13 +938,13 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
             $additionalTable = $this->getTable($additionalTable);
             $bind = [
                 'id'                => $id,
-                'entity_type_id'    => $entityTypeId,
+                'entity_type_id'    => $entityTypeId
             ];
             $select = $this->_conn->select()
                 ->from(['main' => $mainTable])
                 ->join(
                     ['additional' => $additionalTable],
-                    'main.attribute_id = additional.attribute_id',
+                    'main.attribute_id = additional.attribute_id'
                 )
                 ->where("main.{$idField} = :id")
                 ->where('main.entity_type_id = :entity_type_id');
@@ -996,17 +998,17 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
 
         $bind = [
             'id'                => $id,
-            'entity_type_id'    => $entityTypeId,
+            'entity_type_id'    => $entityTypeId
         ];
         $select = $this->getConnection()->select()
             ->from(
                 ['entity_type' => $this->getTable('eav/entity_type')],
-                ['entity_table'],
+                ['entity_table']
             )
             ->join(
                 ['attribute' => $this->getTable('eav/attribute')],
                 'attribute.entity_type_id = entity_type.entity_type_id',
-                ['backend_type'],
+                ['backend_type']
             )
             ->where("entity_type.{$entityKeyName} = :entity_type_id")
             ->where("attribute.{$attributeKeyName} = :id")
@@ -1087,7 +1089,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
 
         $bind = [
             'attribute_set_id' => $setId,
-            'attribute_id'     => $attributeId,
+            'attribute_id'     => $attributeId
         ];
         $select = $this->_conn->select()
             ->from($table)
@@ -1143,7 +1145,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         $bind = [
             'entity_type_id'    => $entityType,
             'attribute_set_id'  => $setId,
-            'attribute_id'      => $attributeId,
+            'attribute_id'      => $attributeId
         ];
         $select = $this->getConnection()->select()
             ->from($this->getTable('eav/entity_attribute'))
@@ -1160,7 +1162,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
             $this->getConnection()->update(
                 $this->getTable('eav/entity_attribute'),
                 $data,
-                $this->getConnection()->quoteInto('entity_attribute_id=?', $row['entity_attribute_id']),
+                $this->getConnection()->quoteInto('entity_attribute_id=?', $row['entity_attribute_id'])
             );
         } else {
             if ($sortOrder === null) {
@@ -1237,8 +1239,6 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /****************************** CREATE ENTITY TABLES ***********************************/
 
     /**
-     * @deprecated Missing unique indexes. To create custom EAV tables, refer to the core:
-     *
      * Create entity tables
      *
      * @param string $baseTableName
@@ -1302,11 +1302,11 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                 ], 'Defines Is Entity Active')
                 ->addIndex(
                     $this->getIdxName($baseTableName, ['entity_type_id']),
-                    ['entity_type_id'],
+                    ['entity_type_id']
                 )
                 ->addIndex(
                     $this->getIdxName($baseTableName, ['store_id']),
-                    ['store_id'],
+                    ['store_id']
                 )
                 ->addForeignKey(
                     $this->getFkName($baseTableName, 'entity_type_id', 'eav/entity_type', 'entity_type_id'),
@@ -1314,7 +1314,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                     $this->getTable('eav/entity_type'),
                     'entity_type_id',
                     Varien_Db_Ddl_Table::ACTION_CASCADE,
-                    Varien_Db_Ddl_Table::ACTION_CASCADE,
+                    Varien_Db_Ddl_Table::ACTION_CASCADE
                 )
                 ->addForeignKey(
                     $this->getFkName($baseTableName, 'store_id', 'core/store', 'store_id'),
@@ -1322,7 +1322,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                     $this->getTable('core/store'),
                     'store_id',
                     Varien_Db_Ddl_Table::ACTION_CASCADE,
-                    Varien_Db_Ddl_Table::ACTION_CASCADE,
+                    Varien_Db_Ddl_Table::ACTION_CASCADE
                 )
                 ->setComment('Eav Entity Main Table');
 
@@ -1337,7 +1337,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                 'int'       => [Varien_Db_Ddl_Table::TYPE_INTEGER, null],
                 'text'      => [Varien_Db_Ddl_Table::TYPE_TEXT, '64k'],
                 'varchar'   => [Varien_Db_Ddl_Table::TYPE_TEXT, '255'],
-                'char'   => [Varien_Db_Ddl_Table::TYPE_TEXT, '255'],
+                'char'   => [Varien_Db_Ddl_Table::TYPE_TEXT, '255']
             ];
         }
 
@@ -1389,28 +1389,28 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                 ], 'Attribute Value')
                 ->addIndex(
                     $this->getIdxName($eavTableName, ['entity_type_id']),
-                    ['entity_type_id'],
+                    ['entity_type_id']
                 )
                 ->addIndex(
                     $this->getIdxName($eavTableName, ['attribute_id']),
-                    ['attribute_id'],
+                    ['attribute_id']
                 )
                 ->addIndex(
                     $this->getIdxName($eavTableName, ['store_id']),
-                    ['store_id'],
+                    ['store_id']
                 )
                 ->addIndex(
                     $this->getIdxName($eavTableName, ['entity_id']),
-                    ['entity_id'],
+                    ['entity_id']
                 );
             if ($type !== 'text') {
                 $eavTable->addIndex(
                     $this->getIdxName($eavTableName, ['attribute_id', 'value']),
-                    ['attribute_id', 'value'],
+                    ['attribute_id', 'value']
                 );
                 $eavTable->addIndex(
                     $this->getIdxName($eavTableName, ['entity_type_id', 'value']),
-                    ['entity_type_id', 'value'],
+                    ['entity_type_id', 'value']
                 );
             }
 
@@ -1421,7 +1421,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                     $this->getTable($baseTableName),
                     'entity_id',
                     Varien_Db_Ddl_Table::ACTION_CASCADE,
-                    Varien_Db_Ddl_Table::ACTION_CASCADE,
+                    Varien_Db_Ddl_Table::ACTION_CASCADE
                 )
                 ->addForeignKey(
                     $this->getFkName($eavTableName, 'entity_type_id', 'eav/entity_type', 'entity_type_id'),
@@ -1429,7 +1429,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                     $this->getTable('eav/entity_type'),
                     'entity_type_id',
                     Varien_Db_Ddl_Table::ACTION_CASCADE,
-                    Varien_Db_Ddl_Table::ACTION_CASCADE,
+                    Varien_Db_Ddl_Table::ACTION_CASCADE
                 )
                 ->addForeignKey(
                     $this->getFkName($eavTableName, 'store_id', 'core/store', 'store_id'),
@@ -1437,7 +1437,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                     $this->getTable('core/store'),
                     'store_id',
                     Varien_Db_Ddl_Table::ACTION_CASCADE,
-                    Varien_Db_Ddl_Table::ACTION_CASCADE,
+                    Varien_Db_Ddl_Table::ACTION_CASCADE
                 )
                 ->setComment('Eav Entity Value Table');
 
@@ -1470,6 +1470,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     /**
      * Insert attribute and filter data
      *
+     * @param array $data
      * @return $this
      */
     protected function _insertAttribute(array $data)
@@ -1491,7 +1492,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         $attributeId = $this->getConnection()->lastInsertId($this->getTable('eav/attribute'));
         $this->_insertAttributeAdditionalData(
             $data['entity_type_id'],
-            array_merge(['attribute_id' => $attributeId], $data),
+            array_merge(['attribute_id' => $attributeId], $data)
         );
 
         return $this;
@@ -1501,6 +1502,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * Insert attribute additional data
      *
      * @param int $entityTypeId
+     * @param array $data
      * @return $this
      */
     protected function _insertAttributeAdditionalData($entityTypeId, array $data)

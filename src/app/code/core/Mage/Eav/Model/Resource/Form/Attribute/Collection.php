@@ -1,5 +1,4 @@
 <?php
-
 /**
  * OpenMage
  *
@@ -10,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -174,7 +173,7 @@ class Mage_Eav_Model_Resource_Form_Attribute_Collection extends Mage_Core_Model_
         $select->join(
             ['ea' => $this->getTable('eav/attribute')],
             'main_table.attribute_id = ea.attribute_id',
-            $eaColumns,
+            $eaColumns
         );
 
         // join additional attribute data table
@@ -189,7 +188,7 @@ class Mage_Eav_Model_Resource_Form_Attribute_Collection extends Mage_Core_Model_
             $select->join(
                 ['ca' => $this->getTable($additionalTable)],
                 'main_table.attribute_id = ca.attribute_id',
-                $caColumns,
+                $caColumns
             );
         }
 
@@ -205,19 +204,19 @@ class Mage_Eav_Model_Resource_Form_Attribute_Collection extends Mage_Core_Model_
                         $code = sprintf('scope_%s', $columnName);
                         $expression = $connection->getCheckSql('sa.%s IS NULL', 'ea.%s', 'sa.%s');
                         $saColumns[$code] = new Zend_Db_Expr(sprintf(
-                            (string) $expression,
+                            $expression,
                             $columnName,
                             $columnName,
-                            $columnName,
+                            $columnName
                         ));
                     } elseif (isset($caColumns[$columnName])) {
                         $code = sprintf('scope_%s', $columnName);
                         $expression = $connection->getCheckSql('sa.%s IS NULL', 'ca.%s', 'sa.%s');
                         $saColumns[$code] = new Zend_Db_Expr(sprintf(
-                            (string) $expression,
+                            $expression,
                             $columnName,
                             $columnName,
-                            $columnName,
+                            $columnName
                         ));
                     }
                 }
@@ -227,12 +226,12 @@ class Mage_Eav_Model_Resource_Form_Attribute_Collection extends Mage_Core_Model_
             $joinWebsiteExpression = $connection
                 ->quoteInto(
                     'sa.attribute_id = main_table.attribute_id AND sa.website_id = ?',
-                    (int) $store->getWebsiteId(),
+                    (int)$store->getWebsiteId()
                 );
             $select->joinLeft(
                 ['sa' => $this->_getEavWebsiteTable()],
                 $joinWebsiteExpression,
-                $saColumns,
+                $saColumns
             );
         }
 
@@ -242,16 +241,16 @@ class Mage_Eav_Model_Resource_Form_Attribute_Collection extends Mage_Core_Model_
         } else {
             $storeLabelExpr = $connection->getCheckSql('al.value IS NULL', 'ea.frontend_label', 'al.value');
             $joinExpression = $connection
-                ->quoteInto('al.attribute_id = main_table.attribute_id AND al.store_id = ?', (int) $store->getId());
+                ->quoteInto('al.attribute_id = main_table.attribute_id AND al.store_id = ?', (int)$store->getId());
             $select->joinLeft(
                 ['al' => $this->getTable('eav/attribute_label')],
                 $joinExpression,
-                ['store_label' => $storeLabelExpr],
+                ['store_label' => $storeLabelExpr]
             );
         }
 
         // add entity type filter
-        $select->where('ea.entity_type_id = ?', (int) $entityType->getId());
+        $select->where('ea.entity_type_id = ?', (int)$entityType->getId());
 
         return parent::_beforeLoad();
     }

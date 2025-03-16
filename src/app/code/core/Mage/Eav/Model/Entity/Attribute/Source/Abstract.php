@@ -1,5 +1,4 @@
 <?php
-
 /**
  * OpenMage
  *
@@ -10,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -84,19 +83,19 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_E
      */
     public function getOptionId($value)
     {
-        $bcWarning = false;
+        $bc_warning = false;
         foreach ($this->getAllOptions() as $option) {
             if (strcasecmp($option['label'], $value) == 0) {
                 return $option['value'];
             }
             if ($option['value'] == $value) {
-                $bcWarning = true;
+                $bc_warning = true;
             }
         }
-        if ($bcWarning) {
+        if ($bc_warning) {
             Mage::log(
                 'Mage_Eav_Model_Entity_Attribute_Source_Abstract::getOptionId() no longer accepts option_id as param',
-                Zend_Log::WARN,
+                Zend_Log::WARN
             );
         }
         return null;

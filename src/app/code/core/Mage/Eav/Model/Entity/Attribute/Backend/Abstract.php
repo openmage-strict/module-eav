@@ -1,5 +1,4 @@
 <?php
-
 /**
  * OpenMage
  *
@@ -10,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -211,7 +210,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract implements Mage_
             if ($this->getAttribute()->getDefaultValue()) {
                 $this->_defaultValue = $this->getAttribute()->getDefaultValue();
             } else {
-                $this->_defaultValue = '';
+                $this->_defaultValue = "";
             }
         }
 
@@ -222,8 +221,8 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract implements Mage_
      * Validate object
      *
      * @param Varien_Object $object
-     * @return $this|bool
-     * @throws Mage_Eav_Exception|Mage_Core_Exception
+     * @throws Mage_Eav_Exception
+     * @return bool
      */
     public function validate($object)
     {
@@ -238,7 +237,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract implements Mage_
             $label = $this->getAttribute()->getFrontend()->getLabel();
             throw Mage::exception(
                 'Mage_Eav',
-                Mage::helper('eav')->__('The value of attribute "%s" contains invalid data.', $label),
+                Mage::helper('eav')->__('The value of attribute "%s" contains invalid data.', $label)
             );
         }
 
@@ -254,7 +253,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract implements Mage_
                 $label = $this->getAttribute()->getFrontend()->getLabel();
                 throw Mage::exception(
                     'Mage_Eav',
-                    Mage::helper('eav')->__('The value of attribute "%s" must be unique', $label),
+                    Mage::helper('eav')->__('The value of attribute "%s" must be unique', $label)
                 );
             }
         }
@@ -310,7 +309,6 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract implements Mage_
     {
         return $this;
     }
-
     /**
      * After delete method
      *
