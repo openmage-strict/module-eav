@@ -5,6 +5,13 @@
     "type": "magento-module",
     "require": {
         "magento-hackathon/magento-composer-installer": "*",
-        "openmage-strict/module-core": "^120.2"
+        "openmage-strict/module-core": "^120.2",
+        "zf1s/zend-controller": "*",
+        "zf1s/zend-date": "*",
+        "zf1s/zend-db": "*",
+        "zf1s/zend-filter": "*",
+        "zf1s/zend-locale": "*",
+        "zf1s/zend-log": "*",
+        "zf1s/zend-validate": "*"
     }
 }
